@@ -8,8 +8,9 @@ import json
 # 实现 gRPC 服务
 class ScraperService(scrape_pb2_grpc.HtmlScraperServicer):
     def ProcessPage(self, request, context):
-        html_text = request.HtmlText
-        page_type = request.PageType
+        print(request)
+        html_text = request.html_text
+        page_type = request.page_type
         
         # 根据页面类型解析 HTML（这里只是一个简单的示例）
         if page_type == "income_statement":
@@ -22,7 +23,7 @@ class ScraperService(scrape_pb2_grpc.HtmlScraperServicer):
             json_data = {"error": "Unknown page type"}
 
         # 返回解析后的 JSON 数据
-        return scrape_pb2.Response(Status="OK", JsonData=json.dumps(json_data))
+        return scrape_pb2.Response(status="OK", json_data=json.dumps(json_data))
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
