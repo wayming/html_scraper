@@ -14,7 +14,7 @@ import (
 func main() {
 	// Create a connection to the gRPC server using grpc.NewClient
 	conn, err := grpc.NewClient(
-		"localhost:50051", // Server address
+		"server:50051", // Server address
 		grpc.WithTransportCredentials(insecure.NewCredentials()), // For insecure connection (no TLS)
 	)
 	if err != nil {
@@ -28,13 +28,13 @@ func main() {
 	// Create a sample Request to send
 	request := &HtmlScraper.Request{
 		HtmlText: "Sample HTML Content",
-		DataType: "json",
+		PageType: "income_statement",
 	}
 
-	// Call ProcessData method from the HtmlScraper service
-	response, err := client.ProcessData(context.Background(), request)
+	// Call ProcessPage method from the HtmlScraper service
+	response, err := client.ProcessPage(context.Background(), request)
 	if err != nil {
-		log.Fatalf("Error calling ProcessData: %v", err)
+		log.Fatalf("Error calling ProcessPage: %v", err)
 	}
 
 	// Print the response
