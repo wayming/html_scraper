@@ -8,12 +8,11 @@ services:
       - "50051:50051"
     networks:
       - grpc-network
+    command: python -v server.py  # This runs the script with verbose output
   client:
     build:
       context: .
       dockerfile: client/Dockerfile
-    environment:
-      - SERVER_HOST=server
     depends_on:
       - server
     networks:

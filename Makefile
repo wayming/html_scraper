@@ -9,4 +9,7 @@ build:
 
 up:
 	docker-compose up
+
+dbg:
+	docker-compose -f docker-compose.dbg.yml up
 	

@@ -12,12 +12,18 @@ message Request {
 
 // 响应消息
 message Response {
-  string status = 1;          // 请求状态，成功或失败
-  string json_data = 2;       // 返回的 JSON 数据
+  StatusCode status = 1;          // 请求状态，成功或失败
+  string     json_data = 2;       // 返回的 JSON 数据
 }
 
 // 服务定义
 service HtmlScraper {
   // 处理 HTML 文本并返回 JSON 格式的数据
   rpc ProcessPage(Request) returns (Response);
+}
+
+enum StatusCode {
+    OK = 0;  // No errors
+    ERROR_PARSER = 1;  // Failed to parse the Html
+    ERROR_INTERNAL = 99;  // Server-side error
 }
